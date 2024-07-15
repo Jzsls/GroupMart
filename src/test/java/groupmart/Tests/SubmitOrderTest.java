@@ -60,6 +60,7 @@ public class SubmitOrderTest extends BaseTest {
 		// Confirming successful order placing on Thanks Page
 		String expectedSucessOrder = thankyouPage.getThankyouMessage();
 		Assert.assertTrue(expectedSucessOrder.equals(succOrderText));
+		Assert.assertTrue(true);
 
 	}
 
