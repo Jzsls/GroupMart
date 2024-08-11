@@ -76,12 +76,18 @@
 			<version>7.18.0</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20240303</version>
+		</dependency>
 
 	</dependencies>
 
 	<profiles>
 		<profile>
-			<id>Regression</id>
+			<id>e2e</id>
 			<build>
 				<pluginManagement>
 					<plugins>
@@ -101,7 +107,7 @@
 		</profile>
 
 		<profile>
-			<id>ErrorValidation</id>
+			<id>Regression</id>
 			<build>
 				<pluginManagement>
 					<plugins>
@@ -112,7 +118,7 @@
 							<configuration>
 								<suiteXmlFiles>
 									<suiteXmlFile>
-										testSuite/ErrorValidationTests.xml</suiteXmlFile>
+										testSuite/LoginRegression.xml</suiteXmlFile>
 								</suiteXmlFiles>
 							</configuration>
 						</plugin>

@@ -10,9 +10,9 @@
       <class name="groupmart.Tests.SubmitOrderTest"/>
     </classes>
   </test> <!-- Test -->
-  <test thread-count="5" name="Login Error Validation Test">
+  <test thread-count="5" name="Login Validation Test">
     <classes>
-      <class name="groupmart.Tests.LoginErrorValidationTest"/>
+      <class name="groupmart.Tests.LoginRegressionTest"/>
     </classes>
   </test>
 </suite> <!-- Suite -->

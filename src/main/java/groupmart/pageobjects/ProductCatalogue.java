@@ -1,5 +1,6 @@
 package groupmart.pageobjects;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -16,8 +17,9 @@ public class ProductCatalogue extends AbstractComponent {
 	By individualProduct = By.tagName("b");
 	By addToCartButton = By.cssSelector("button:nth-of-type(2)");
 	By addToCardMessageDisplay = By.id("toast-container");
+	By successfullLoginMessage = By.cssSelector("[aria-label='Login Successfully']");
 
-	public ProductCatalogue(WebDriver driver) {
+	public ProductCatalogue(WebDriver driver) throws IOException {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -47,6 +49,12 @@ public class ProductCatalogue extends AbstractComponent {
 	public void addDesiredProductToCart(String productName) {
 		WebElement item = getProductbyName(productName);
 		item.findElement(addToCartButton).click();
+
+	}
+
+	public String getProductCatalogueUrlPath() {
+		waitForAnElementToAppear(successfullLoginMessage, 7);
+		return driver.getCurrentUrl();
 
 	}
 

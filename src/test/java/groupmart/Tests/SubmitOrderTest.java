@@ -16,23 +16,11 @@ import groupmart.pageobjects.ProductCatalogue;
 import groupmart.pageobjects.ThankyouPage;
 
 public class SubmitOrderTest extends BaseTest {
-//	String productName = "ZARA COAT 3";
-//	String email = "abc+1@jmail.com";
-//	String password = "Abc123@#";
-	String filePath = "//src//test//java//groupmart//data//PurchaseOrder.json";
-//	String sshotFilePath = "//Screenshots//sshoot.png";
 
 	@Test(dataProvider = "getData")
 	public void submitOrder(HashMap<String, String> user) throws InterruptedException, IOException {
 
-		String desiredCountry = "Germany";
-		String desiredCountrySearchText = "ger";
-		String succOrderText = "THANKYOU FOR THE ORDER.";
-		String[] cardDetails = { "09", "22", "123", "Ana Miller" };
-//		String expiryDateMonth = "09";
-//		String expiryDateday = "22";
-//		String cvvCode = "123";
-//		String nameOnCard = "Ana Miller";
+		addCredentials(user);
 
 		// doing login page automation
 		ProductCatalogue productCatalogue = loginPage.appLogin(user.get("email"), user.get("password"));
@@ -53,20 +41,20 @@ public class SubmitOrderTest extends BaseTest {
 		PaymentPage paymentPage = myCart.clickOnCheckout();
 
 		// doing Payment page automation
-		paymentPage.fillCardDetails(cardDetails);
-		paymentPage.selectShippingCountry(desiredCountrySearchText, desiredCountry);
+		paymentPage.fillCardDetails(envJson.path("paymentPage").path("cardDetails"));
+		paymentPage.selectShippingCountry(envJson.path("paymentPage").path("desiredCountrySearchText").asText(),
+				envJson.path("paymentPage").path("desiredCountry").asText());
 		ThankyouPage thankyouPage = paymentPage.clickPlaceOrderButton();
 
 		// Confirming successful order placing on Thanks Page
 		String expectedSucessOrder = thankyouPage.getThankyouMessage();
-		Assert.assertTrue(expectedSucessOrder.equals(succOrderText));
+		Assert.assertTrue(expectedSucessOrder.equals(envJson.path("thankyouPage").path("succOrderText").asText()));
 		Assert.assertTrue(true);
 
 	}
 
-	// String productName = "ZARA COAT 3";
 	@Test(dataProvider = "getData", dependsOnMethods = { "submitOrder" })
-	public void productInOrderHistoryTest(HashMap<String, String> user) {
+	public void productInOrderHistoryTest(HashMap<String, String> user) throws IOException {
 		ProductCatalogue productCatalogue = loginPage.appLogin(user.get("email"), user.get("password"));
 		OrdersPage ordersPage = productCatalogue.jsMyOrderClick();
 		boolean productExists = ordersPage.verifyProductInOrderList(user.get("productName"));
@@ -75,26 +63,8 @@ public class SubmitOrderTest extends BaseTest {
 
 	@DataProvider
 	public Object[][] getData() throws IOException {
-		List<HashMap<String, String>> data = getJsonData(filePath);
+		List<HashMap<String, String>> data = getUserJsonData(USER_PROFILES_PATH);
 		return new Object[][] { { data.get(0) }, { data.get(1) } };
 	}
-
-//	@DataProvider
-//	public Object[][] getData() {
-//		return new Object[][] { { "abc+2@jmail.com", "Angoli1@", "ADIDAS ORIGINAL" },
-//				{ "abc+1@jmail.com", "Abc123@#", "ZARA COAT 3" } };
-//	}
-//	@DataProvider
-//	public Object[][] getData() {
-//		HashMap<String, String> user1 = new HashMap<String, String>();
-//		user1.put("email", "abc+2@jmail.com");
-//		user1.put("password", "Angoli1@");
-//		user1.put("productName", "ADIDAS ORIGINAL");
-//		HashMap<String, String> user2 = new HashMap<String, String>();
-//		user2.put("email", "abc+1@jmail.com");
-//		user2.put("password", "Abc123@#");
-//		user2.put("productName", "ZARA COAT 3");
-//		return new Object[][] { { user1 }, { user2 } };
-//	}
 
 }

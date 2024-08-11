@@ -1,5 +1,6 @@
 package groupmart.pageobjects;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -8,13 +9,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import groupmart.AbstractComponents.AbstractComponent;
 
 public class PaymentPage extends AbstractComponent {
 
 	WebDriver driver;
 
-	public PaymentPage(WebDriver driver) {
+	public PaymentPage(WebDriver driver) throws IOException {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -43,13 +46,13 @@ public class PaymentPage extends AbstractComponent {
 	@FindBy(className = "action__submit")
 	WebElement placeOrderButton;
 
-	public void fillCardDetails(String cardDetails[]) {
+	public void fillCardDetails(JsonNode cardDetails) {
 		Select dropdown1 = new Select(staticDropdown1);
-		dropdown1.selectByVisibleText(cardDetails[0]);
+		dropdown1.selectByVisibleText(cardDetails.path("expiryYear").asText());
 		Select dropdown2 = new Select(staticDropdown2);
-		dropdown2.selectByVisibleText(cardDetails[1]);
-		cvvCodeField.sendKeys(cardDetails[2]);
-		nameOnCardField.sendKeys(cardDetails[3]);
+		dropdown2.selectByVisibleText(cardDetails.path("expiryday").asText());
+		cvvCodeField.sendKeys(cardDetails.path("cvvCode").asText());
+		nameOnCardField.sendKeys(cardDetails.path("nameOnCard").asText());
 
 	}
 
@@ -61,7 +64,7 @@ public class PaymentPage extends AbstractComponent {
 
 	}
 
-	public ThankyouPage clickPlaceOrderButton() {
+	public ThankyouPage clickPlaceOrderButton() throws IOException {
 		placeOrderButton.click();
 		return new ThankyouPage(driver);
 	}

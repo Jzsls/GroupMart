@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,24 +23,33 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import groupmart.AbstractComponents.AbstractComponent;
 import groupmart.pageobjects.LoginPage;
+import groupmart.pageobjects.OrdersPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
-	public WebDriver driver;
-	public LoginPage loginPage;
+	protected WebDriver driver;
+	protected LoginPage loginPage;
+	protected OrdersPage ordersPage;
+	protected AbstractComponent abstractComponent;
+	private List<HashMap<String, String>> usedCredentials = new ArrayList<>();
+	protected JsonNode envJson;
+	protected static final String USER_PROFILES_PATH = "//src//test//java//groupmart//data//UserProfiles.json";
 
 	public WebDriver initializeDriver() throws IOException {
-
+		String globalPropertiesPath = "//src//main//java//groupmart//resources//GlobalData.properties";
 		Properties properties = new Properties();
-		FileInputStream fileInputStream = new FileInputStream(
-				System.getProperty("user.dir") + "//src//main//java//groupmart//resources//GlobalData.properties");
+		FileInputStream fileInputStream = new FileInputStream(System.getProperty("user.dir") + globalPropertiesPath);
 		properties.load(fileInputStream);
 		String browserName = System.getProperty("browser") != null ? System.getProperty("browser")
 				: properties.getProperty("browser");
@@ -64,7 +74,7 @@ public class BaseTest {
 		else if (browserName.contains("firefox")) {
 			FirefoxOptions options = new FirefoxOptions();
 			if (browserName.contains("headless")) {
-				options.addArguments("--headless=new");
+				options.addArguments("-headless");
 			}
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver(options);
@@ -96,7 +106,7 @@ public class BaseTest {
 
 	}
 
-	public List<HashMap<String, String>> getJsonData(String filePath) throws IOException {
+	public List<HashMap<String, String>> getUserJsonData(String filePath) throws IOException {
 		String jsonContent = FileUtils.readFileToString(new File(System.getProperty("user.dir") + filePath),
 				StandardCharsets.UTF_8);
 		ObjectMapper mapper = new ObjectMapper();
@@ -107,9 +117,16 @@ public class BaseTest {
 
 	}
 
+	public void getEnvJsonData() throws IOException {
+		abstractComponent = new AbstractComponent(driver);
+		envJson = abstractComponent.envJson;
+	}
+
 	@BeforeMethod(alwaysRun = true)
 	public void launchApp() throws IOException {
 		driver = initializeDriver();
+		abstractComponent = new AbstractComponent(driver);
+		envJson = abstractComponent.envJson;
 		loginPage = new LoginPage(driver);
 		loginPage.goTo();
 		// return loginPage;
@@ -118,6 +135,29 @@ public class BaseTest {
 	@AfterMethod(alwaysRun = true)
 	public void teardown() throws IOException {
 		driver.quit();
+	}
+
+	@AfterTest
+	public void dataCleaning() throws IOException, InterruptedException {
+		String emptyOrderPageText;
+
+		for (HashMap<String, String> user : usedCredentials) {
+			launchApp();
+			loginPage.appLogin(user.get("email"), user.get("password"));
+			ordersPage = new OrdersPage(driver);
+			ordersPage.jsMyOrderClick();
+			ordersPage.deleteOrders();
+			emptyOrderPageText = ordersPage.orderDeletionConfirmation();
+			Assert.assertTrue(
+					emptyOrderPageText.contains(envJson.path("orderHistoryPage").path("noOrderText").asText()));
+			driver.quit();
+		}
+
+	}
+
+	// Method to add credentials for cleanup process
+	public void addCredentials(HashMap<String, String> user) {
+		usedCredentials.add(user);
 	}
 
 }
