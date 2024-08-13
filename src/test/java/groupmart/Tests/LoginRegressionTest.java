@@ -62,7 +62,7 @@ public class LoginRegressionTest extends BaseTest {
 
 	}
 
-	@Test(dataProvider = "getData", groups = { "LoginErrorHandling", "LoginRegression" })
+	@Test(dataProvider = "getData", groups = { "LoginSuccess", "LoginRegression" })
 	public void ValidLoginCredentials(HashMap<String, String> user) throws InterruptedException, IOException {
 
 		ProductCatalogue productCatalogue = loginPage.appLogin(user.get("validEmail"), user.get("validPassword"));
