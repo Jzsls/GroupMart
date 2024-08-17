@@ -23,19 +23,8 @@ public class StepDefinitionImplementation extends BaseTest {
 
 	String desiredCountry = "Germany";
 	String desiredCountrySearchText = "ger";
-	// String succOrderText = "THANKYOU FOR THE ORDER.";
 	String[] cardDetails = { "09", "22", "123", "Ana Miller" };
 	String loginPageTitle = "Let's Shop";
-//	JsonNode envJson = null;
-//
-//	public StepDefinitionImplementation() {
-//		try {
-//			envJson = getEnvJsonData();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//
-//		}
-//	}
 
 	@Given("The groupmart app is launched")
 	public void The_groupmart_app_is_launched() throws IOException {
