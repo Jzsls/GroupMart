@@ -3,7 +3,7 @@
 <suite name="Suite" parallel="tests">
 	<groups>
 		<run>
-			<include name="LoginErrorHandling"></include>
+			<include name="LoginRegression"></include>
 		</run>
 	</groups>
 	<listeners>
