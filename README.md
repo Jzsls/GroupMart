@@ -75,7 +75,7 @@ The **GroupMart: Selenium-TestNG-Cucumber-Hybrid-Testing-Framework** is a compre
 [maven download](https://maven.apache.org/download.cgi) - download **apache-maven-x.x.x-src.tar.gz** file for mac O.S and **apache-maven-x.x.x-src.zip** for win O.S. 
 3. **Install maven and set system path**  
 [How to Install Maven and Configure Environment Variables](https://www.qamadness.com/knowledge-base/how-to-install-maven-and-configure-environment-variables/)
-4. **Install all required maven dependencies**
+4. **Navigate to the project directory and install all required maven dependencies**
    ```bash
    mvn clean install
 
