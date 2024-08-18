@@ -86,10 +86,10 @@ The **GroupMart: Selenium-TestNG-Cucumber-Hybrid-Testing-Framework** is a compre
    mvn test
 - To run specific TestNG test profile with browser of choice:
     ```bash
-   mvn test -p`ProfileName` -Dbrowser=`browserName`
+   mvn test -P`profileName` -Dbrowser=`browserName`
 here profileName could be **`e2e`** or **`Regression`** and browserName could be **`chrome`**, **`firefox`** or **`edge`**
 - To run Cucumber tests:
     ```bash
-   mvn test -pCucumberTests -Dbrowser=`browserName`
+   mvn test -PCucumberTests -Dbrowser=`browserName`
 
 ## Contribution and feedback are welcomed
