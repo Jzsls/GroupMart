@@ -35,7 +35,7 @@ The **GroupMart: Selenium-TestNG-Cucumber-Hybrid-Testing-Framework** is a compre
 - [cucumber-testng](https://mvnrepository.com/artifact/io.cucumber/cucumber-testng) - version 7.18.0 or higher
 - [json](https://mvnrepository.com/artifact/org.json/json) - version 20240303 or higher
 - [maven commands](https://maven.apache.org/download.cgi) - download **apache-maven-x.x.x-src.tar.gz** file for mac O.S and **apache-maven-x.x.x-src.zip** for win O.S. 
-- [How to Install Maven and Configure Environment Variables](https://www.qamadness.com/knowledge-base/how-to-install-maven-and-configure-environment-variables/) - Install and system path setting guidance
+- [How to Install Maven and Configure Environment Variables](https://www.qamadness.com/knowledge-base/how-to-install-maven-and-configure-environment-variables/) - Installation and system path setting guidance
 - [Triggering TestNG tests from mvn commands](https://maven.apache.org/surefire/maven-surefire-plugin/examples/testng.html#using-suite-xml-files) - plugin to trigger TestNG tests from maven commands
 - **Cucumber Eclipse Plugin** by Cucumber MIT to support writting cucumber feature files. Could be downloaded from **Eclipse Marketplace** 
 - **IDE** such as IntelliJ IDEA or Eclipse IDE
