@@ -6,3 +6,5 @@ test-output/*
 !test-output/.gitkeep
 # Ignore the .classpath file
 .classpath
+# Ignore the .project file
+.project
