@@ -72,20 +72,36 @@ The **GroupMart: Selenium-TestNG-Cucumber-Hybrid-Testing-Framework** is a compre
    ```bash
    git clone https://github.com/Jzsls/GroupMart-Selenium-TestNG-Cucumber-Hybrid-Testing-Framework.git
 2. **Navigate to the project directory and install all required maven dependencies**
-   ```bash
-   mvn clean install
+ - For Unix-based users
+     ```bash
+      ./mvnw clean install -DskipTests
+ - For Windows users
+      ```bash
+       mvnw.cmd clean install -DskipTests
 
 ## Running Tests
-
+### For Unix-based users
 - To run all tests:
    ```bash
-   mvn test
+   ./mvnw test
 - To run specific TestNG test profile with browser of choice:
     ```bash
-   mvn test -P`profileName` -Dbrowser=`browserName`
+   ./mvnw test -P`profileName` -Dbrowser=`browserName`
 here profileName could be **`e2e`** or **`Regression`** and browserName could be **`chrome`**, **`firefox`** or **`edge`**
 - To run Cucumber tests:
     ```bash
-   mvn test -PCucumberTests -Dbrowser=`browserName`
+   ./mvnw test -PCucumberTests -Dbrowser=`browserName`
+
+### For Windows users
+- To run all tests:
+   ```bash
+   mvnw.cmd test
+- To run specific TestNG test profile with browser of choice:
+    ```bash
+   mvnw.cmd test -P`profileName` -Dbrowser=`browserName`
+here profileName could be **`e2e`** or **`Regression`** and browserName could be **`chrome`**, **`firefox`** or **`edge`**
+- To run Cucumber tests:
+    ```bash
+   mvnw.cmd -PCucumberTests -Dbrowser=`browserName`
 
 ## Contribution and feedback are welcomed
