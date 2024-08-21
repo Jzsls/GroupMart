@@ -1,4 +1,5 @@
  
 # Ignore the entire target and test-output directory
 target/*
+!target/.gitkeep
 test-output/*
