@@ -59,7 +59,9 @@ The **GroupMart: Selenium-TestNG-Cucumber-Hybrid-Testing-Framework** is a compre
 
 `testSuite/` - This folder contains .xml execution configuration file for individual test suites i.e e2e and Regression
 
+`mvnw` - Maven wrapper to execute maven projects inside Unix-based systems
 
+`mvnw.cmd` - Maven wrapper to execute maven projects inside Windows O.S
 
 `pom.xml` - Entry point to test suites. This file contains all maven configuration and dependencies along with the individual test profiles to be executed with maven commands
 
@@ -69,11 +71,7 @@ The **GroupMart: Selenium-TestNG-Cucumber-Hybrid-Testing-Framework** is a compre
 
    ```bash
    git clone https://github.com/Jzsls/GroupMart-Selenium-TestNG-Cucumber-Hybrid-Testing-Framework.git
-2. **Download Maven:**
-[maven download](https://maven.apache.org/download.cgi) - download **apache-maven-x.x.x-src.tar.gz** file for mac O.S and **apache-maven-x.x.x-src.zip** for win O.S. 
-3. **Install maven and set system path**  
-[How to Install Maven and Configure Environment Variables](https://www.qamadness.com/knowledge-base/how-to-install-maven-and-configure-environment-variables/)
-4. **Navigate to the project directory and install all required maven dependencies**
+2. **Navigate to the project directory and install all required maven dependencies**
    ```bash
    mvn clean install
 
