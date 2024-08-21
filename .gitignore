@@ -1,0 +1,3 @@
+ 
+# Ignore the entire target directory
+target/
