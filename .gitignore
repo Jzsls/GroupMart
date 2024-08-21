@@ -8,3 +8,5 @@ test-output/*
 .classpath
 # Ignore the .project file
 .project
+# Ignore the .project file
+.settings/
