@@ -3,3 +3,4 @@
 target/*
 !target/.gitkeep
 test-output/*
+!test-output/.gitkeep
