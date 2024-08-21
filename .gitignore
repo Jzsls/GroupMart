@@ -4,3 +4,5 @@ target/*
 !target/.gitkeep
 test-output/*
 !test-output/.gitkeep
+# Ignore the .classpath file
+.classpath
